@@ -1,5 +1,5 @@
 import "./App.css";
-// import About from "./Components/About";
+import About from "./Components/About";
 import Navbar from "./Components/Navbar";
 import TextForm from "./Components/TextForm";
 import React, { useState } from "react";
@@ -21,7 +21,19 @@ function App() {
     }, 2000);
   };
 
-  const togglemode = () => {
+  const removeBodyClasses=()=>{
+    document.body.classList.remove('bg-light')
+    document.body.classList.remove('bg-dark')
+    document.body.classList.remove('bg-warning')
+    document.body.classList.remove('bg-danger')
+    document.body.classList.remove('bg-success')
+    // document.body.classList.remove('bg-primary')
+  }
+
+  const togglemode = (cls) => {
+    // console.log(cls)
+    removeBodyClasses();
+    document.body.classList.add('bg-'+cls)
     if (Mode === "light") {
       setMode("dark");
       document.body.style.backgroundColor = "black";
@@ -35,7 +47,7 @@ function App() {
 
   return (
     <>
-      {/* <Router> */}
+      <Router>
         <Navbar
           title="TextUils"
           mode={Mode}
@@ -44,24 +56,22 @@ function App() {
         />
         <Alert alert={alert} />
         <div className="container">
-          {/* <Routes>
-            <Route exact path="/about"
-              element={<About />}>
-            </Route> */}
+          <Routes>
+            <Route exact path="/about" element={<About mode={Mode} />}></Route>
 
-            {/* <Route exact path="/" */}
-            {/* element={  */}
-            <TextForm
-              showAlert={showAlert}
-              Heading="Enter the text to analse"
-              mode={Mode}
-            />
-            {/* } */}
-             
-            {/* </Route>
-          </Routes> */}
+            <Route exact path="/"
+              element=
+              {
+                <TextForm
+                  showAlert={showAlert}
+                  Heading="Enter the text to analse"
+                  mode={Mode}
+                />
+              }>
+            </Route>
+          </Routes>
         </div>
-      {/* </Router> */}
+      </Router>
       {/* <About /> */}
     </>
   );
